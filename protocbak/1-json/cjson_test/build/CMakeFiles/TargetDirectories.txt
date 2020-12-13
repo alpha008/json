@@ -1,0 +1,3 @@
+/home/ubuntu/json/protocol/1-json/cjson_test/build/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/json/protocol/1-json/cjson_test/build/CMakeFiles/cjson_speed.dir
+/home/ubuntu/json/protocol/1-json/cjson_test/build/CMakeFiles/edit_cache.dir

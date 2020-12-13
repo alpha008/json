@@ -12,8 +12,8 @@
 #include <sys/time.h>
 #include <sys/wait.h>
 
-#include "IM.BaseDefine.pb.h"
-#include "IM.Login.pb.h"
+#include "./proto/IM.BaseDefine.pb.h"
+#include "./proto/IM.Login.pb.h"
 
 static uint64_t getNowTime()
 {

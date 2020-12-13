@@ -6,14 +6,15 @@
  * @LastEditors: Please set LastEditors
  * @LastEditTime: 2020-06-09 22:08:38
  */
+//g++ -std=c++11 IM.BaseDefine.pb.cc IM.Login.pb.cc code_test.cpp -o test `pkg-config --cflags --libs protobuf`
 #include <iostream>
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/time.h>
 #include <sys/wait.h>
 
-#include "IM.BaseDefine.pb.h"
-#include "IM.Login.pb.h"
+#include "./proto/IM.BaseDefine.pb.h"
+#include "./proto/IM.Login.pb.h"
 
 static uint64_t getNowTime()
 {
@@ -46,13 +47,10 @@ mutable_xxx()返回分配内存后的对象，如果已经分配过则直接返�
 bool ProtobufEncode(std::string &strPb)
 {
     IM::Login::Person person;
-
     person.set_name("darren");      // 设置以set_为前缀
     person.set_age(80);
-
     person.add_languages("C++");    // 数组add
     person.add_languages("Java");
-
     // 电话号码
     // mutable_ 嵌套对象时使用，并且是单个对象时使用，比如对应的Person里面的Phone  phone = 4;
     // 比如mutable_phone如果phone已经存在则直接返回，如果不存在则new 一个返回
@@ -64,7 +62,6 @@ bool ProtobufEncode(std::string &strPb)
     }
     phone->set_number("18570368134");
     phone->set_phone_type(IM::BaseDefine::PHONE_HOME);
-
     // 书籍
     // add_则是针对repeated的嵌套对象，每次调用都返回一个新的对象，注意和mutable_的区别。
     // 比如Person里面的repeated Book   books   = 5;
@@ -74,18 +71,14 @@ bool ProtobufEncode(std::string &strPb)
     book = person.add_books();
     book->set_name("Linux server development");
     book->set_price(8.0);
-
     // vip
     person.set_vip(true);
     // 地址
     person.set_address("yageguoji");
-
-    uint32_t pbSize = person.ByteSize();        // 序列化后的大小
-    
+    uint32_t pbSize = person.ByteSize();        // 序列化后的大小  
     strPb.clear();
     strPb.resize(pbSize);
     uint8_t *szData = (uint8_t *)strPb.c_str();
-
     if (!person.SerializeToArray(szData, pbSize))   // 拷贝序列化后的数据
     {
         std::cout << "person pb msg SerializeToArray failed." << std::endl;
@@ -127,9 +120,9 @@ void TInt()
     int1.set_int1(0x12);
     int1Size = int1.ByteSize();        // 序列化后的大小
     std::cout << "0x12 int1Size = " << int1Size << std::endl;
-    strPb.clear();
-    strPb.resize(int1Size);
-    szData = (uint8_t *)strPb.c_str();
+    strPb.clear(); // 将字符串对象清空
+    strPb.resize(int1Size); // 字符串对象  
+    szData = (uint8_t *)strPb.c_str(); // 返回指针对象
     int1.SerializeToArray(szData, int1Size);   // 拷贝序列化后的数据
     printHex(szData, int1Size);
     
@@ -140,9 +133,9 @@ void TInt()
     strPb.resize(int1Size);
     szData = (uint8_t *)strPb.c_str();
     int1.SerializeToArray(szData, int1Size);   // 拷贝序列化后的数据
-    printHex(szData, int1Size);
+    printHex(szData, int1Size);  //打印序列化后的对象
 	
-
+#if 0
     int1.set_int1(0x7f);
     int1Size = int1.ByteSize();        // 序列化后的大小
     std::cout << "0xff int1Size = " << int1Size << std::endl;
@@ -179,6 +172,8 @@ void TInt()
     szData = (uint8_t *)strPb.c_str();
     int1.SerializeToArray(szData, int1Size);   // 拷贝序列化后的数据
     printHex(szData, int1Size);
+
+    #endif
 }
 
 void TString(void)
@@ -222,7 +217,7 @@ void TString(void)
 int main(void)
 {
     TInt();
-    TString();
+   // TString();
     return 0;
 }
 

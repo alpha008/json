@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/cjson_speed.dir/cjson_speed.c.o CMakeFiles/cjson_speed.dir/cJSON.c.o  -o cjson_speed -lm 

@@ -1,0 +1,22 @@
+https://github.com/protocolbuffers/protobuf
+谷歌开源的 协议标准+工具
+安装工具->根据编写的proto文件产生c++代码
+1. 解压
+tar zxvf protobuf-cpp-3.8.0.tar.gz
+2. 编译（make的时间有点长）
+cd protobuf-3.8.0/
+./configure
+make
+sudo make install
+3. 显示版本信息
+protoc –version
+生成各种版本的代码
+4. 编写proto文件
+5. 将proto文件生成对应的.cc和.h文件
+6. 编译范例
+比如：
+g++ -o code_test code_test.cpp
+IM.BaseDefine.pb.cc IM.Login.pb.cc -lprotobuf -lpthread
+
+
+上面为安装protocobuf的操作步骤
