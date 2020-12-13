@@ -35,7 +35,7 @@ void printfJson(cJSON *json) {
         return;
     }
     char *cjson=cJSON_Print(json);//深拷贝
-    printf("json:%s\n", cjson);
+    printf("zjx printfJson json:%s\n", cjson);
     free(cjson);
 }
 
@@ -48,7 +48,7 @@ void freeJson(cJSON *json) {
 
 //创建JSON
 cJSON * createJson() {
-    cJSON *json_root=cJSON_CreateObject();
+    cJSON *json_root = cJSON_CreateObject();
 	cJSON_AddItemToObject(json_root, "name", cJSON_CreateString("milo"));
 	cJSON_AddNumberToObject(json_root, "age", 80);
     cJSON *json_professional=cJSON_CreateObject();
@@ -101,8 +101,9 @@ void addDataToJson(cJSON *json) {
     CJSON_PUBLIC(void) cJSON_AddItemToObject(cJSON *object, const char *string, cJSON *item);
     */
     cJSON_AddItemToObject(json, "hobby", hobby);
-
+    printf("zjx print add \n");
     printfJson(json);
+    printf("zjx print add end  \n");
 }
 
 //修改
@@ -147,7 +148,7 @@ void analysisJsonObj(cJSON *json) {
     if (NULL == json) {
         return;
     }
-
+    printf("key -- value prase start  \n");
     cJSON *json_name = cJSON_GetObjectItem(json, "name");
     printf("root[%s:%s]\n", json_name->string, json_name->valuestring);
 
@@ -213,10 +214,12 @@ void analysisJsonObj(cJSON *json) {
     if (json_address->type ==cJSON_NULL) {
         printf("root[%s:null]\n", json_address->string);
     }
+     printf("key -- value prase end  \n");
 }
 
 
 static void printJsonObjvalue(const cJSON *json) {
+     printf("根据json对象类型解析 start \n");  
     if (NULL == json) {
         printf("NULL object!\n");
         return;
@@ -224,30 +227,31 @@ static void printJsonObjvalue(const cJSON *json) {
 
     switch (json->type) {
         case cJSON_False:
-            printf("%s: false\n", json->string);
+            printf("%s , %s: false\n", "cJSON_False", json->string);
             break;
         case cJSON_True:
-            printf("%s: true\n", json->string);
+            printf("%s ,%s: true\n","cJSON_True", json->string);
             break;
         case cJSON_NULL:
-            printf("%s: cJSON_NULL\n", json->string);
+            printf("%s , %s: cJSON_NULL\n", "cJSON_NULL",json->string);
             break;
         case cJSON_Number:
-            printf("%s: %d, %f\n", json->string, json->valueint, json->valuedouble);
+            printf("%s , %s: %d, %f\n","cJSON_Number", json->string, json->valueint, json->valuedouble);
             break;
         case cJSON_String:
-            printf("%s: %s\n", json->string, json->valuestring);
+            printf("%s , %s: %s\n","cJSON_String", json->string, json->valuestring);
             break;
         case cJSON_Array:
-            printf("%s: cJSON_Array\n", json->string);
+            printf("%s , %s: cJSON_Array\n","cJSON_Array", json->string);
             break;
         case cJSON_Object:
-            printf("%s: cJSON_Object\n", json->string);
+            printf("%s , %s: cJSON_Object\n","cJSON_Object", json->string);
             break;
         default:
             printf("unknown type\n");
             break;
     }
+     printf("根据json对象类型解析 end \n");  
 }
 
 void analysisJsonPrint(cJSON *json) {
@@ -401,7 +405,7 @@ void test3() {
 
     updateDataToJson(json_root);
 
-    deleteDataToJson(json_root);
+    //deleteDataToJson(json_root);
 
     freeJson(json_root);
 }
@@ -409,10 +413,15 @@ void test3() {
 int main(int argc, char *argv[]) {
     
     printf("-----------------------------------\n");
-    test1();
+    // 常规构建json对象，然后按类型输出或者按照对象类型进行判断解析
+    // test1();
+
     printf("-----------------------------------\n");
-    test2();
+    // 与文件读写操作相互配合
+    // test2();
+
     printf("-----------------------------------\n");
+    // 带有增加和删除操作的json
     test3();
     printf("-----------------------------------\n");
 

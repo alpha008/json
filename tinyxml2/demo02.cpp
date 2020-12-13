@@ -20,9 +20,18 @@ int main(void)
     </note>";
     tinyxml2::XMLDocument doc;
     doc.Parse(xml);
-    std::cout << doc.ErrorID() << std::endl;
-
+    std::cout << "  doc.ErrorID() = " <<  doc.ErrorID() << std::endl;
+    
     // 1. 第一种刷新到本地
+    doc.SaveFile("memory_2.xml");
+
+    // 2. 加载到内存，并打印
+    tinyxml2::XMLPrinter printer1;
+    doc.Print(&printer1); // 打印到内存
+    std::cout <<"zjx  print to screen \n " <<printer1.CStr() << std::endl;
+
+
+    //3. 第三种刷新到本地
     FILE *fp = fopen("memory_1.xml", "wb");
     tinyxml2::XMLPrinter printer(fp);
     doc.Print(&printer); // 打印到文件，则.CStr()就返回空值了
@@ -30,8 +39,7 @@ int main(void)
     std::cout << "xml:" << printer.CStr() << std::endl;
     fclose(fp);
 
-    // 2. 第二种刷新到本地
-    doc.SaveFile("memory_2.xml");
+
 
     return 0;
 }

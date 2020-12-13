@@ -17,8 +17,8 @@ int main(void)
     // 本地文件读取
     tinyxml2::XMLError ret = doc.LoadFile("0voice.xml");
 
-    std::cout << doc.ErrorID() << std::endl;
-    std::cout << ret << std::endl;
+    std::cout <<"doc.ErrorID() =  " << doc.ErrorID() << std::endl;
+    std::cout << "ret = " << ret << std::endl;
 
     //  加载到内存
     tinyxml2::XMLPrinter printer;

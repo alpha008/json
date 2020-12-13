@@ -125,7 +125,7 @@ COMMENT* convertToComment(cJSON *json)
 }
 
 void readJsonFromData(char *data) {
-    cJSON *json=cJSON_Parse(data);//将data数据构建成cJSON结构
+    cJSON *json=cJSON_Parse(data);//将data数据构转化为字符串的地址
     //打印json
     printfJson(json);
 
@@ -177,11 +177,11 @@ void readJsonFile() {
     //打开一个文本文件，文件必须存在，只允许读
     fp = fopen(fileName, "r");
     //seek末尾
-    fseek(fp, 0, SEEK_END);
+    fseek(fp, 0, SEEK_END);// 定为当前位置到结束位置
     //读取文件大小
-    long len = ftell(fp);
+    long len = ftell(fp); // 定为当前位置到起始位置距离
     //seek起始位值
-    fseek(fp, 0, SEEK_SET);
+    fseek(fp, 0, SEEK_SET);// 定为当前位置到起始位置
     char *data = (char*)malloc(len + 1);
     fread(data, 1, len, fp);
     if (fp != NULL) {
